@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="yin.dao.ContactorDao">
+
+    <resultMap id="BaseResultMap" type="yin.entity.Contactor">
+        <!--@Table contactor-->
+        <result property="accountId" column="account_id" jdbcType="INTEGER"/>
+        <result property="card" column="card" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="OTHER"/>
+        <result property="phone" column="phone" jdbcType="INTEGER"/>
+        <result property="type" column="type" jdbcType="OTHER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select
+          account_id, card, name, phone, type
+        from dbo.contactor
+        where account_id = #{accountId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select
+          account_id, card, name, phone, type
+        from dbo.contactor
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+          account_id, card, name, phone, type
+        from dbo.contactor
+        <where>
+            <if test="accountId != null">
+                and account_id = #{accountId}
+            </if>
+            <if test="card != null and card != ''">
+                and card = #{card}
+            </if>
+            <if test="name != null">
+                and name = #{name}
+            </if>
+            <if test="phone != null">
+                and phone = #{phone}
+            </if>
+            <if test="type != null">
+                and type = #{type}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="accountId" useGeneratedKeys="true">
+        insert into dbo.contactor(name, phone, type)
+        values (#{name}, #{phone}, #{type})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update dbo.contactor
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="phone != null">
+                phone = #{phone},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+        </set>
+        where account_id = #{accountId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from dbo.contactor where account_id = #{accountId}
+    </delete>
+
+</mapper>

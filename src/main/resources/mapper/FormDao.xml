@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="yin.dao.FormDao">
+
+    <resultMap id="BaseResultMap" type="yin.entity.Form">
+        <!--@Table form-->
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="accountId" column="account_id" jdbcType="INTEGER"/>
+        <result property="trainId" column="train_id" jdbcType="INTEGER"/>
+        <result property="trainStartingtime" column="train_startingTime" jdbcType="TIMESTAMP"/>
+        <result property="stationIdfrom" column="station_idFrom" jdbcType="INTEGER"/>
+        <result property="stationIdto" column="station_idTo" jdbcType="INTEGER"/>
+        <result property="price" column="price" jdbcType="OTHER"/>
+        <result property="ispay" column="isPay" jdbcType="OTHER"/>
+        <result property="paytime" column="payTime" jdbcType="TIMESTAMP"/>
+        <result property="createtime" column="createTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select
+          id, account_id, train_id, train_startingTime, station_idFrom, station_idTo, price, isPay, payTime, createTime
+        from dbo.form
+        where  = #{}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select
+          id, account_id, train_id, train_startingTime, station_idFrom, station_idTo, price, isPay, payTime, createTime
+        from dbo.form
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+          id, account_id, train_id, train_startingTime, station_idFrom, station_idTo, price, isPay, payTime, createTime
+        from dbo.form
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="accountId != null">
+                and account_id = #{accountId}
+            </if>
+            <if test="trainId != null">
+                and train_id = #{trainId}
+            </if>
+            <if test="trainStartingtime != null">
+                and train_startingTime = #{trainStartingtime}
+            </if>
+            <if test="stationIdfrom != null">
+                and station_idFrom = #{stationIdfrom}
+            </if>
+            <if test="stationIdto != null">
+                and station_idTo = #{stationIdto}
+            </if>
+            <if test="price != null">
+                and price = #{price}
+            </if>
+            <if test="ispay != null">
+                and isPay = #{ispay}
+            </if>
+            <if test="paytime != null">
+                and payTime = #{paytime}
+            </if>
+            <if test="createtime != null">
+                and createTime = #{createtime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="" useGeneratedKeys="true">
+        insert into dbo.form(id, account_id, train_id, train_startingTime, station_idFrom, station_idTo, price, isPay, payTime, createTime)
+        values (#{id}, #{accountId}, #{trainId}, #{trainStartingtime}, #{stationIdfrom}, #{stationIdto}, #{price}, #{ispay}, #{paytime}, #{createtime})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update dbo.form
+        <set>
+            <if test="id != null">
+                id = #{id},
+            </if>
+            <if test="accountId != null">
+                account_id = #{accountId},
+            </if>
+            <if test="trainId != null">
+                train_id = #{trainId},
+            </if>
+            <if test="trainStartingtime != null">
+                train_startingTime = #{trainStartingtime},
+            </if>
+            <if test="stationIdfrom != null">
+                station_idFrom = #{stationIdfrom},
+            </if>
+            <if test="stationIdto != null">
+                station_idTo = #{stationIdto},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="ispay != null">
+                isPay = #{ispay},
+            </if>
+            <if test="paytime != null">
+                payTime = #{paytime},
+            </if>
+            <if test="createtime != null">
+                createTime = #{createtime},
+            </if>
+        </set>
+        where  = #{}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from dbo.form where  = #{}
+    </delete>
+
+</mapper>
