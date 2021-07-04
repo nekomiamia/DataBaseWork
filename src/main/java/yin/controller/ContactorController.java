@@ -10,7 +10,7 @@ import javax.annotation.Resource;
  * (Contactor)表控制层
  *
  * @author makejava
- * @since 2021-07-04 21:14:18
+ * @since 2021-07-04 21:27:53
  */
 @RestController
 @RequestMapping("contactor")
@@ -27,9 +27,6 @@ public class ContactorController {
      * @param id 主键
      * @return 单条数据
      */
-    @GetMapping("selectOne")
-    public Contactor selectOne(Integer id) {
-        return this.contactorService.queryById(id);
-    }
+
 
 }

@@ -10,7 +10,7 @@ import javax.annotation.Resource;
  * (Train)表控制层
  *
  * @author makejava
- * @since 2021-07-04 21:14:18
+ * @since 2021-07-04 21:27:56
  */
 @RestController
 @RequestMapping("train")
@@ -27,9 +27,5 @@ public class TrainController {
      * @param id 主键
      * @return 单条数据
      */
-    @GetMapping("selectOne")
-    public Train selectOne(Integer id) {
-        return this.trainService.queryById(id);
-    }
 
 }

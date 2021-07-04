@@ -21,15 +21,5 @@ public class AccountController {
     @Resource
     private AccountService accountService;
 
-    /**
-     * 通过主键查询单条数据
-     *
-     * @param id 主键
-     * @return 单条数据
-     */
-    @GetMapping("selectOne")
-    public Account selectOne(String id) {
-        return this.accountService.queryById(id);
-    }
 
 }

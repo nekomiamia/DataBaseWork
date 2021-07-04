@@ -10,7 +10,7 @@ import javax.annotation.Resource;
  * (Station)表控制层
  *
  * @author makejava
- * @since 2021-07-04 21:14:18
+ * @since 2021-07-04 21:27:55
  */
 @RestController
 @RequestMapping("station")
@@ -27,9 +27,5 @@ public class StationController {
      * @param id 主键
      * @return 单条数据
      */
-    @GetMapping("selectOne")
-    public Station selectOne(Integer id) {
-        return this.stationService.queryById(id);
-    }
 
 }

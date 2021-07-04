@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="yin.dao.TrainDao">
+
+    <resultMap id="BaseResultMap" type="yin.entity.Train">
+        <!--@Table train-->
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="startingtime" column="startingTime" jdbcType="TIMESTAMP"/>
+        <result property="terminaltime" column="terminalTime" jdbcType="TIMESTAMP"/>
+        <result property="name" column="name" jdbcType="OTHER"/>
+        <result property="passengerlimit" column="passengerLimit" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select
+          id, startingTime, terminalTime, name, passengerLimit
+        from dbo.train
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select
+          id, startingTime, terminalTime, name, passengerLimit
+        from dbo.train
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+          id, startingTime, terminalTime, name, passengerLimit
+        from dbo.train
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="startingtime != null">
+                and startingTime = #{startingtime}
+            </if>
+            <if test="terminaltime != null">
+                and terminalTime = #{terminaltime}
+            </if>
+            <if test="name != null">
+                and name = #{name}
+            </if>
+            <if test="passengerlimit != null">
+                and passengerLimit = #{passengerlimit}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into dbo.train(terminalTime, name, passengerLimit)
+        values (#{terminaltime}, #{name}, #{passengerlimit})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update dbo.train
+        <set>
+            <if test="terminaltime != null">
+                terminalTime = #{terminaltime},
+            </if>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="passengerlimit != null">
+                passengerLimit = #{passengerlimit},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from dbo.train where id = #{id}
+    </delete>
+
+</mapper>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="yin.dao.StationintervalDao">
+
+    <resultMap id="BaseResultMap" type="yin.entity.Stationinterval">
+        <!--@Table stationInterval-->
+        <result property="trainId" column="train_id" jdbcType="INTEGER"/>
+        <result property="trainStartingtime" column="train_startingTime" jdbcType="TIMESTAMP"/>
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="stationId" column="station_id" jdbcType="INTEGER"/>
+        <result property="listnumber" column="listNumber" jdbcType="INTEGER"/>
+        <result property="passengerseat" column="passengerSeat" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select
+          train_id, train_startingTime, id, station_id, listNumber, passengerSeat
+        from dbo.stationInterval
+        where train_id = #{trainId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select
+          train_id, train_startingTime, id, station_id, listNumber, passengerSeat
+        from dbo.stationInterval
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+          train_id, train_startingTime, id, station_id, listNumber, passengerSeat
+        from dbo.stationInterval
+        <where>
+            <if test="trainId != null">
+                and train_id = #{trainId}
+            </if>
+            <if test="trainStartingtime != null">
+                and train_startingTime = #{trainStartingtime}
+            </if>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="stationId != null">
+                and station_id = #{stationId}
+            </if>
+            <if test="listnumber != null">
+                and listNumber = #{listnumber}
+            </if>
+            <if test="passengerseat != null and passengerseat != ''">
+                and passengerSeat = #{passengerseat}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="trainId" useGeneratedKeys="true">
+        insert into dbo.stationInterval(id, station_id, listNumber, passengerSeat)
+        values (#{id}, #{stationId}, #{listnumber}, #{passengerseat})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update dbo.stationInterval
+        <set>
+            <if test="id != null">
+                id = #{id},
+            </if>
+            <if test="stationId != null">
+                station_id = #{stationId},
+            </if>
+            <if test="listnumber != null">
+                listNumber = #{listnumber},
+            </if>
+            <if test="passengerseat != null and passengerseat != ''">
+                passengerSeat = #{passengerseat},
+            </if>
+        </set>
+        where train_id = #{trainId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from dbo.stationInterval where train_id = #{trainId}
+    </delete>
+
+</mapper>

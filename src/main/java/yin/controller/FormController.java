@@ -10,7 +10,7 @@ import javax.annotation.Resource;
  * (Form)表控制层
  *
  * @author makejava
- * @since 2021-07-04 21:14:18
+ * @since 2021-07-04 21:27:54
  */
 @RestController
 @RequestMapping("form")
@@ -27,9 +27,6 @@ public class FormController {
      * @param id 主键
      * @return 单条数据
      */
-    @GetMapping("selectOne")
-    public Form selectOne( id) {
-        return this.formService.queryById(id);
-    }
+
 
 }
